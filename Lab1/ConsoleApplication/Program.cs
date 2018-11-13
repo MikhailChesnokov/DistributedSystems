@@ -2,6 +2,7 @@
 {
     using DataDestination;
     using Domain.Converter;
+    using ExcelGeneration;
     using static DataSource.MsAccess.MsAccessHelper;
 
 
@@ -13,7 +14,8 @@
             LoadFlatTableRows()
                 .ConvertToEntities()
                 .SaveToMySql()
-                .SaveToSqlServer();
+                .SaveToSqlServer()
+                .GenerateExcel().SaveToFile("result.xlsx");
         }
     }
 }

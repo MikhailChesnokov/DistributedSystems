@@ -37,6 +37,10 @@
       <HintPath>..\packages\EntityFrameworkCore.Jet.2.0.0\lib\net461\EntityFrameworkCore.Jet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.EntityFrameworkCore, Version=2.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.0.3\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
@@ -111,6 +115,7 @@
       <HintPath>..\packages\Pomelo.JsonObject.1.1.1\lib\net451\Pomelo.JsonObject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b">
       <HintPath>..\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
       <Private>True</Private>
@@ -130,6 +135,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Jet, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
@@ -144,6 +150,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
       <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
       <Private>True</Private>
@@ -173,6 +180,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -194,6 +202,8 @@
     <Compile Include="Domain\OrderPart.cs" />
     <Compile Include="Domain\Part.cs" />
     <Compile Include="Domain\Shop.cs" />
+    <Compile Include="ExcelGeneration\ExcelGenerationExtensions.cs" />
+    <Compile Include="ExcelGeneration\ExcelGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="DataSource\FlatTableRow.cs" />
   </ItemGroup>
@@ -204,6 +214,9 @@
     <Content Include="DataDestination\MySql\parts.sql" />
     <Content Include="DataDestination\SqlServer\parts.sql" />
     <Content Include="DataSource\MsAccess\Database1.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelGeneration\Templates\Default.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
