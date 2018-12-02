@@ -1,6 +1,5 @@
 namespace ConsoleApplication.Domain
 {
-    using System;
     using System.Collections.Generic;
 
 
@@ -22,9 +21,9 @@ namespace ConsoleApplication.Domain
     internal sealed class OrderPartComparer : IEqualityComparer<OrderPart>
     {
         public bool Equals(OrderPart x, OrderPart y) =>
-            x.Order.Number == y.Order.Number &&
-            x.Part.Name.Equals(y.Part.Name, StringComparison.InvariantCultureIgnoreCase);
+            x.Order.Equals(y.Order) &&
+            x.Part.Equals(y.Part);
 
-        public int GetHashCode(OrderPart obj) => (obj.Order.Number, obj.Part.Name.ToLower()).GetHashCode();
+        public int GetHashCode(OrderPart obj) => (obj.Order.GetHashCode(), obj.Part.GetHashCode()).GetHashCode();
     }
 }

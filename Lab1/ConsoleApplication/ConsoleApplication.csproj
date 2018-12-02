@@ -201,6 +201,7 @@
     <Compile Include="Domain\Order.cs" />
     <Compile Include="Domain\OrderPart.cs" />
     <Compile Include="Domain\Part.cs" />
+    <Compile Include="Domain\PartShop.cs" />
     <Compile Include="Domain\Shop.cs" />
     <Compile Include="ExcelGeneration\ExcelGenerationExtensions.cs" />
     <Compile Include="ExcelGeneration\ExcelGenerator.cs" />

@@ -15,7 +15,7 @@ namespace ConsoleApplication.Domain
 
         public bool Presence { get; set; }
 
-        public Shop Shop { get; set; }
+        public ISet<PartShop> PartShops { get; set; } = new HashSet<PartShop>(new PartShopComparer());
 
         public ISet<OrderPart> OrderParts { get; set; } = new HashSet<OrderPart>(new OrderPartComparer());
         

@@ -13,7 +13,7 @@ namespace ConsoleApplication.Domain
         
         public string City { get; set; }
 
-        public ISet<Part> Parts { get; set; } = new HashSet<Part>(new PartComparer());
+        public ISet<PartShop> PartShops { get; set; } = new HashSet<PartShop>(new PartShopComparer());
 
 
         public override bool Equals(object obj) => new ShopComparer().Equals(this, obj as Shop);

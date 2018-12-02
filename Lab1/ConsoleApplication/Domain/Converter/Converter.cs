@@ -14,6 +14,7 @@ namespace ConsoleApplication.Domain.Converter
         private static readonly ISet<Part> Parts = new HashSet<Part>(new PartComparer());
         private static readonly ISet<Shop> Shops = new HashSet<Shop>(new ShopComparer());
         private static readonly ISet<OrderPart> OrderParts = new HashSet<OrderPart>();
+        private static readonly ISet<PartShop> PartShops = new HashSet<PartShop>();
 
 
         
@@ -26,6 +27,7 @@ namespace ConsoleApplication.Domain.Converter
                 var part = new Part {Name = row.PartName, Price = row.PartPrice, Presence = row.PartPresence};
                 var shop = new Shop {Address = row.ShopAddress, City = row.ShopCity};
                 var orderPart = new OrderPart {Order = order, Part = part};
+                var partShop = new PartShop {Part = part, Shop = shop};
                 
                 Clients.Add(client);
                 Orders.Add(order);
@@ -43,12 +45,6 @@ namespace ConsoleApplication.Domain.Converter
                     order.Client = client;
                 }
 
-                if (!shop.Parts.Contains(part, new PartComparer()))
-                {
-                    shop.Parts.Add(part);
-                    part.Shop = shop;
-                }
-
                 if (!order.OrderParts.Contains(orderPart, new OrderPartComparer()))
                 {
                     OrderParts.Add(orderPart);
@@ -56,6 +52,15 @@ namespace ConsoleApplication.Domain.Converter
                     part.OrderParts.Add(orderPart);
                     orderPart.Part = part;
                     orderPart.Order = order;
+                }
+                
+                if (!shop.PartShops.Contains(partShop, new PartShopComparer()))
+                {
+                    PartShops.Add(partShop);
+                    shop.PartShops.Add(partShop);
+                    part.PartShops.Add(partShop);
+                    partShop.Part = part;
+                    partShop.Shop = shop;
                 }
             }
 
@@ -65,7 +70,8 @@ namespace ConsoleApplication.Domain.Converter
                 [typeof(Order)] = Orders,
                 [typeof(Part)] = Parts,
                 [typeof(Shop)] = Shops,
-                [typeof(OrderPart)] = OrderParts
+                [typeof(OrderPart)] = OrderParts,
+                [typeof(PartShop)] = PartShops
             };
         }
     }

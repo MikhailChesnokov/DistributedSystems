@@ -24,5 +24,7 @@ namespace ConsoleApplication.DataDestination
         public DbSet<Shop> Shop { get; set; }
 
         public DbSet<OrderPart> OrderPart { get; set; }
+
+        public DbSet<PartShop> PartShop { get; set; }
     }
 }

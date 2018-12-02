@@ -1,10 +1,12 @@
 namespace ConsoleApplication.ExcelGeneration
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using Domain;
     using OfficeOpenXml;
 
@@ -41,17 +43,22 @@ namespace ConsoleApplication.ExcelGeneration
                     .First()
                     .GetType()
                     .GetProperties()
-                    .Where(p => p.PropertyType.IsPrimitive || new[] {typeof(string), typeof(decimal)}.Contains(p.PropertyType))
+                    .Where(p => !typeof(IEnumerable).IsAssignableFrom(p.PropertyType) || p.PropertyType == typeof(string))
                     .ToList();
-                    
+
+                // sheet title
+                excel.Workbook.Worksheets[sheet].Name = entitiesSet.GetType().GenericTypeArguments.First().Name;
+                
+                // column headers
                 properties.ForEach(p => excel.Write(p.Name).OnSheet(sheet).Fill(Color.PowderBlue).To(column++.ToString(), 1));
 
                 column = 'A';
                 row++;
                 
+                // values
                 entitiesSet.ToList().ForEach(e =>
                 {
-                    properties.ForEach(p => excel.Write(e.GetType().GetProperties().First(y => y.Name == p.Name).GetValue(e)).OnSheet(sheet).To(column++.ToString(), row));
+                    properties.ForEach(p => excel.Write(GetPropertyValue(e.GetType().GetProperties().First(y => y.Name == p.Name),e)).OnSheet(sheet).To(column++.ToString(), row));
                     
                     column = 'A';
                     row++;
@@ -59,6 +66,33 @@ namespace ConsoleApplication.ExcelGeneration
 
                 sheet++;
             });
+        }
+
+        private static object GetPropertyValue(PropertyInfo propertyInfo, IEntity entity)
+        {
+            if (propertyInfo.PropertyType.IsPrimitive ||
+                propertyInfo.PropertyType == typeof(string) ||
+                propertyInfo.PropertyType == typeof(decimal))
+            {
+                return propertyInfo.GetValue(entity);
+            }
+
+            if (propertyInfo.PropertyType == typeof(DateTime))
+            {
+                return ((DateTime)propertyInfo.GetValue(entity)).ToLongDateString();
+            }
+
+            if (propertyInfo.PropertyType.IsClass &&
+                typeof(IEntity).IsAssignableFrom(propertyInfo.PropertyType))
+            {
+                var relatedObject = propertyInfo.GetValue(entity);
+
+                var relatedObjectId = relatedObject.GetType().GetProperties().First(x => x.Name.Equals("Id", StringComparison.InvariantCultureIgnoreCase)).GetValue(relatedObject);
+
+                return relatedObjectId;
+            }
+            
+            throw new NotImplementedException($"Unexpected property type {propertyInfo.PropertyType.Name}.");
         }
         
         public static void SaveToFile(this Stream stream, string name)
