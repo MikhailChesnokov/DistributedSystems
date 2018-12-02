@@ -15,19 +15,11 @@ create table `order`
   Date     datetime(6) not null,
   Number   int         not null,
   constraint FK_Order_Client_ClientId
-  foreign key (ClientId) references client (id)
+    foreign key (ClientId) references client (id)
 );
 
 create index IX_Order_ClientId
   on `order` (ClientId);
-
-create table shop
-(
-  Id      int auto_increment
-    primary key,
-  Address longtext null,
-  City    longtext null
-);
 
 create table part
 (
@@ -35,10 +27,7 @@ create table part
     primary key,
   Name     longtext null,
   Presence bit      not null,
-  Price    double   not null,
-  ShopId   int      null,
-  constraint FK_Part_Shop_ShopId
-  foreign key (ShopId) references shop (id)
+  Price    double   not null
 );
 
 create table orderpart
@@ -48,9 +37,9 @@ create table orderpart
   OrderId int null,
   PartId  int null,
   constraint FK_OrderPart_Order_OrderId
-  foreign key (OrderId) references `order` (id),
+    foreign key (OrderId) references `order` (id),
   constraint FK_OrderPart_Part_PartId
-  foreign key (PartId) references part (id)
+    foreign key (PartId) references part (id)
 );
 
 create index IX_OrderPart_OrderId
@@ -59,5 +48,29 @@ create index IX_OrderPart_OrderId
 create index IX_OrderPart_PartId
   on orderpart (PartId);
 
-create index IX_Part_ShopId
-  on part (ShopId);
+create table shop
+(
+  Id      int auto_increment
+    primary key,
+  Address longtext null,
+  City    longtext null
+);
+
+create table partshop
+(
+  Id     int auto_increment
+    primary key,
+  PartId int null,
+  ShopId int null,
+  constraint FK_PartShop_Part_PartId
+    foreign key (PartId) references part (id),
+  constraint FK_PartShop_Shop_ShopId
+    foreign key (ShopId) references shop (id)
+);
+
+create index IX_PartShop_PartId
+  on partshop (PartId);
+
+create index IX_PartShop_ShopId
+  on partshop (ShopId);
+
