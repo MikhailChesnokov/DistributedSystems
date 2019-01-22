@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -103,11 +105,30 @@ namespace Sender
 
             var serialisedMessageBytes = Encoding.UTF8.GetBytes(serialisedMessage);
 
-            channel.BasicPublish(
-                exchange: string.Empty,
-                routingKey: "default",
-                basicProperties: null,
-                body: serialisedMessageBytes);
+            SendByMessageQueue();
+            SendBySocket();
+            
+            
+            void SendByMessageQueue()
+            {
+                channel.BasicPublish(
+                    exchange: string.Empty,
+                    routingKey: "default",
+                    basicProperties: null,
+                    body: serialisedMessageBytes);
+            }
+
+            void SendBySocket()
+            {
+                var receiver = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
+            
+                using (var socket = new Socket(receiver.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+                {
+                    socket.Connect(receiver);
+                    socket.SendTo(serialisedMessageBytes, receiver);
+                    socket.Close();
+                };
+            }
         }
     }
 }

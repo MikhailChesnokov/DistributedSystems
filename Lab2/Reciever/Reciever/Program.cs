@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
@@ -36,7 +38,7 @@ namespace Reciever
 
                     var consumer = new EventingBasicConsumer(channel);
 
-                    consumer.Received += ReceivedDesAndData;
+                    consumer.Received += ReceivedDesAndDataByMessageQueue;
 
                     channel.BasicConsume(
                         queue: "default",
@@ -45,7 +47,7 @@ namespace Reciever
                     
                     SendPublicRsaKey(channel, Rsa);
                     
-                    Console.ReadKey();
+                    ReceivedDesAndDataBySocket();
                 }
             }
         }
@@ -65,10 +67,40 @@ namespace Reciever
                 body: serializedPublicRsaKeyBytes);
         }
 
-        private static void ReceivedDesAndData(object model, BasicDeliverEventArgs args)
+        private static void ReceivedDesAndDataByMessageQueue(object model, BasicDeliverEventArgs args)
         {
             var serializedMessageBytes = args.Body;
 
+            FetchData(serializedMessageBytes);
+        }
+        
+        private static void ReceivedDesAndDataBySocket()
+        {
+            var receiver = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
+                    
+            using (var socket = new Socket(receiver.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+            {
+                socket.Bind(receiver);
+                socket.Listen(10);
+
+                using (var handler = socket.Accept())
+                {
+                    var buffer = new byte[1024 * 16];
+                            
+                    handler.Receive(buffer);
+                            
+                    FetchData(buffer);
+                            
+                    handler.Shutdown(SocketShutdown.Both);
+                    handler.Close();
+                }
+                        
+                socket.Close();
+            };
+        }
+
+        private static void FetchData(byte[] serializedMessageBytes)
+        {
             var serializedMessage = Encoding.UTF8.GetString(serializedMessageBytes);
 
             var message = JsonConvert.DeserializeObject<Message>(serializedMessage);
