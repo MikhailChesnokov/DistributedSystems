@@ -1,16 +1,18 @@
-﻿using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-namespace Sender
+﻿namespace Sender
 {
-    class Program
+    using System.IO;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Threading;
+    using Newtonsoft.Json;
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
+    using Producer.DataSource.MsAccess;
+
+
+    internal static class Program
     {
         private static readonly byte[] DesKey = { 1, 3, 4, 2, 5, 9, 0, 11 };
         private static readonly byte[] InitialVector = {1, 2, 3, 4, 5, 6, 7, 8, };
@@ -20,7 +22,7 @@ namespace Sender
         
         
         public static void Main()
-        {
+        {       
             var factory = new ConnectionFactory { HostName = "localhost" };
             
             using (var connection = factory.CreateConnection())
@@ -43,13 +45,18 @@ namespace Sender
                         autoAck: true,
                         consumer: consumer);
 
+                    var data = MsAccessHelper.LoadFlatTableRows();
+                    
+                    var serializedData = JsonConvert.SerializeObject(data);
+                    
+                    var encodedSerializedData = EncodeData(serializedData);
+                    
                     while (!_publicRsaKeyReceived)
                         Thread.Sleep(500);
 
                     var encodedDesKey = EncodeDesKey();
-                    var encodeData = EncodeData("hello");
                     
-                    SendDesKeyAndData(channel, encodedDesKey, encodeData);
+                    SendDesKeyAndData(channel, encodedDesKey, encodedSerializedData);
                 }
             }
         }

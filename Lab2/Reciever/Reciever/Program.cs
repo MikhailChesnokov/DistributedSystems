@@ -1,15 +1,20 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Text;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-namespace Reciever
+﻿namespace Reciever
 {
+    using System.IO;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Security.Cryptography;
+    using System.Text;
+    using Consumer;
+    using Consumer.DataDestination;
+    using Consumer.Domain.Converter;
+    using Newtonsoft.Json;
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;   
+    using System.Collections.Generic;
+
+    
+    
     class Program
     {
         private static readonly RSA Rsa = RSA.Create();
@@ -17,7 +22,7 @@ namespace Reciever
         private static byte[] _desKey;
         private static readonly byte[] InitialVector = {1, 2, 3, 4, 5, 6, 7, 8, };
         
-        private static string _data;
+        private static string _serializedData;
         
         
         
@@ -50,6 +55,12 @@ namespace Reciever
                     ReceivedDesAndDataBySocket();
                 }
             }
+
+            var flatTableRows = JsonConvert.DeserializeObject<IEnumerable<FlatTableRow>>(_serializedData);
+
+            flatTableRows
+                .ConvertToEntities()
+                .SaveToMySql();
         }
 
         private static void SendPublicRsaKey(IModel channel, RSA rsa)
@@ -109,8 +120,6 @@ namespace Reciever
             _desKey = Rsa.Decrypt(message.EncodedDes, RSAEncryptionPadding.Pkcs1);
 
             DecryptData(message.EncodedData);
-            
-            Console.WriteLine(_data);
         }
         
         private static void DecryptData(byte[] encryptedData)
@@ -126,7 +135,7 @@ namespace Reciever
                         cryptoStream.FlushFinalBlock();
                     }
 
-                    _data = Encoding.UTF8.GetString(stream.ToArray());
+                    _serializedData = Encoding.UTF8.GetString(stream.ToArray());
                 }
             }
         }
