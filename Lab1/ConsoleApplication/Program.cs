@@ -1,21 +1,28 @@
 ﻿namespace ConsoleApplication
 {
-    using DataDestination;
-    using Domain.Converter;
-    using ExcelGeneration;
-    using static DataSource.MsAccess.MsAccessHelper;
-
-
-
-    class Program
+    using static Producer.DataSource.MsAccess.MsAccessHelper;
+    using System.Collections.Generic;
+    using AutoMapper;
+    using Consumer.DataDestination;
+    using Consumer.Domain.Converter;
+    using Consumer.ExcelGeneration;
+    using Producer.DataSource;
+    
+    
+    public static class Program
     {
-        static void Main()
+        static Program()
         {
-            LoadFlatTableRows()
+            Mapper.Initialize(x => x.CreateMap<FlatTableRow, Consumer.FlatTableRow>());
+        }
+        
+        public static void Main()
+        {
+            Mapper.Map<IEnumerable<Consumer.FlatTableRow>>(LoadFlatTableRows())
                 .ConvertToEntities()
                 .SaveToMySql()
-                .SaveToSqlServer()
-                .GenerateExcel().SaveToFile("result.xlsx");
+                .GenerateExcel()
+                .SaveToFile("result.xlsx");
         }
     }
 }

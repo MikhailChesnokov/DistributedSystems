@@ -4,14 +4,13 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{F41911F7-377D-4868-9D50-A85F37626FDA}</ProjectGuid>
+        <ProjectGuid>{346CC276-D64D-44DD-87E2-4B305A09BD32}</ProjectGuid>
         <OutputType>Exe</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>ConsoleApplication</RootNamespace>
-        <AssemblyName>ConsoleApplication</AssemblyName>
+        <RootNamespace>Sender</RootNamespace>
+        <AssemblyName>Sender</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
-        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,15 +40,11 @@
           <HintPath>..\packages\EntityFrameworkCore.Jet.2.2.0-preview1\lib\net461\EntityFrameworkCore.Jet.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="EPPlus, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1">
-          <HintPath>..\packages\EPPlus.4.5.3\lib\net40\EPPlus.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604">
-          <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
         <Reference Include="Microsoft.CSharp" />
+        <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=2.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.2.0.1\lib\net461\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="Microsoft.EntityFrameworkCore, Version=2.2.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
           <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.2.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
           <Private>True</Private>
@@ -107,31 +102,17 @@
           <Private>True</Private>
         </Reference>
         <Reference Include="mscorlib" />
-        <Reference Include="MySql.Data, Version=8.0.14.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
-          <HintPath>..\packages\MySql.Data.8.0.14\lib\net452\MySql.Data.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="MySql.Data.EntityFrameworkCore, Version=8.0.14.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
-          <HintPath>..\packages\MySql.Data.EntityFrameworkCore.8.0.14\lib\net461\MySql.Data.EntityFrameworkCore.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="MySqlConnector, Version=0.49.3.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92">
-          <HintPath>..\packages\MySqlConnector.0.49.3\lib\net471\MySqlConnector.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
         <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
           <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Pomelo.EntityFrameworkCore.MySql, Version=2.1.4.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\packages\Pomelo.EntityFrameworkCore.MySql.2.1.4\lib\netstandard2.0\Pomelo.EntityFrameworkCore.MySql.dll</HintPath>
+        <Reference Include="Producer, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\..\Lab1\Producer\bin\Debug\Producer.dll</HintPath>
+        </Reference>
+        <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce">
+          <HintPath>..\packages\RabbitMQ.Client.5.1.0\lib\net451\RabbitMQ.Client.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Pomelo.JsonObject, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\packages\Pomelo.JsonObject.2.0.0\lib\netstandard2.0\Pomelo.JsonObject.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="PresentationCore" />
         <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b">
           <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
           <Private>True</Private>
@@ -145,14 +126,11 @@
           <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="System.ComponentModel" />
         <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="System.ComponentModel.DataAnnotations" />
-        <Reference Include="System.Configuration" />
-        <Reference Include="System.Configuration.Install" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Data.Jet, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
@@ -163,29 +141,23 @@
           <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="System.Drawing" />
-        <Reference Include="System.Drawing.Design" />
         <Reference Include="System.Interactive.Async, Version=3.2.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
           <HintPath>..\packages\System.Interactive.Async.3.2.0\lib\net46\System.Interactive.Async.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="System.Management" />
+        <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System.Numerics" />
         <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="System.Runtime" />
         <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="System.Security" />
-        <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-          <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="System.Transactions" />
         <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
           <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
           <Private>True</Private>
@@ -196,17 +168,12 @@
         <Compile Include="Program.cs" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Consumer\Consumer.csproj">
-        <Project>{ee70ec71-479f-4249-889f-a1316f3e1e5c}</Project>
-        <Name>Consumer</Name>
-      </ProjectReference>
-      <ProjectReference Include="..\Producer\Producer.csproj">
-        <Project>{ba167c80-52b3-4c13-8c0f-539bacedb05b}</Project>
-        <Name>Producer</Name>
-      </ProjectReference>
+      <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <None Include="packages.config" />
+      <Content Include="DataSource\MsAccess\Database1.accdb">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
