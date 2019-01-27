@@ -1,9 +1,8 @@
-namespace ConsoleApplication.Domain
+namespace Consumer.Domain
 {
     using System.Collections.Generic;
-
-
-
+    
+    
     public sealed class OrderPart : IEntity
     {
         public int Id { get; set; }

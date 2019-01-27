@@ -1,33 +1,19 @@
-namespace ConsoleApplication.DataDestination
+namespace Consumer.DataDestination
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Domain;
     using MySql;
-    using SqlServer;
-
-
-
-    internal static class DataDestinationExtensions
+    using Domain;
+    
+    
+    public static class DataDestinationExtensions
     {
-        internal static IDictionary<Type, IEnumerable<IEntity>> SaveToMySql(this IDictionary<Type, IEnumerable<IEntity>> entities)
+        public static IDictionary<Type, IEnumerable<IEntity>> SaveToMySql(this IDictionary<Type, IEnumerable<IEntity>> entities)
         {
             using (var context = new MySqlContext())
             {
-                DropIds(entities);
-                
-                SaveAll(entities, context);
-            }
-
-            return entities;
-        }
-
-        internal static IDictionary<Type, IEnumerable<IEntity>> SaveToSqlServer(this IDictionary<Type, IEnumerable<IEntity>> entities)
-        {
-            using (var context = new SqlServerContext())
-            {
-                DropIds(entities);
+                //DropIds(entities);
                 
                 SaveAll(entities, context);
             }

@@ -1,13 +1,10 @@
-namespace ConsoleApplication.Domain.Converter
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Consumer.Domain.Converter
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using DataSource;
-
-
-
-    internal static class Converter
+    public static class Converter
     {
         private static readonly ISet<Client> Clients = new HashSet<Client>(new ClientComparer());
         private static readonly ISet<Order> Orders = new HashSet<Order>(new OrderComparer());

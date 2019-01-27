@@ -1,18 +1,15 @@
-namespace ConsoleApplication.ExcelGeneration
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Consumer.Domain;
+using OfficeOpenXml;
+namespace Consumer.ExcelGeneration
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using Domain;
-    using OfficeOpenXml;
-
-
-
-    internal static class ExcelGenerator
+    public static class ExcelGenerator
     {
         public static Stream GenerateExcel(this IDictionary<Type, IEnumerable<IEntity>> entities)
         {

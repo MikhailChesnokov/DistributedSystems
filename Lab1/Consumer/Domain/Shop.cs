@@ -1,10 +1,10 @@
-namespace ConsoleApplication.Domain
+namespace Consumer.Domain
 {
     using System;
     using System.Collections.Generic;
 
-
-
+    
+    
     public sealed class Shop : IEntity
     {
         public int Id { get; set; }

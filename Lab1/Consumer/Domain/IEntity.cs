@@ -1,4 +1,4 @@
-namespace ConsoleApplication.Domain
+namespace Consumer.Domain
 {
     public interface IEntity
     {

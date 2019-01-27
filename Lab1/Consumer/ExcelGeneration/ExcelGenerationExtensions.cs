@@ -1,11 +1,10 @@
-namespace ConsoleApplication.ExcelGeneration
+namespace Consumer.ExcelGeneration
 {
     using System.Drawing;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
 
-
-
+    
     public sealed class WriteContext
     {
         public ExcelPackage Package { get; set; }

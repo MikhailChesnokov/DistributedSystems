@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="EPPlus" Version="4.5.3" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="ExcelGeneration\Templates\Default.xlsx">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

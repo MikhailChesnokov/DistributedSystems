@@ -1,11 +1,10 @@
-namespace ConsoleApplication.DataSource.MsAccess
+namespace Producer.DataSource.MsAccess
 {
     using System.Collections.Generic;
     using System.Linq;
 
 
-
-    internal static class MsAccessHelper
+    public static class MsAccessHelper
     {
         public static IEnumerable<FlatTableRow> LoadFlatTableRows()
         {

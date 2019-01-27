@@ -1,10 +1,9 @@
-namespace ConsoleApplication.DataDestination
+namespace Consumer.DataDestination
 {
     using Domain;
     using Microsoft.EntityFrameworkCore;
 
-
-
+    
     public abstract class CommonContext : DbContext
     {
         protected CommonContext()

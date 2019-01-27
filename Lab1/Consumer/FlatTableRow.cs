@@ -1,10 +1,9 @@
-namespace ConsoleApplication.DataSource
+namespace Consumer
 {
     using System;
-
-
-
-    internal sealed class FlatTableRow
+    
+    
+    public class FlatTableRow
     {
         public int Id { get; set; }
 

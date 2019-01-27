@@ -1,10 +1,10 @@
-namespace ConsoleApplication.DataSource.MsAccess
+namespace Producer.DataSource.MsAccess
 {
     using EntityFrameworkCore.Jet;
     using Microsoft.EntityFrameworkCore;
 
-
-
+    
+    
     internal sealed class MsAccessContext : DbContext
     {
         internal DbSet<FlatTableRow> MainTable { get; set; }
