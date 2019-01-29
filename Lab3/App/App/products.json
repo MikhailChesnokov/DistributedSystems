@@ -1,0 +1,26 @@
+[
+    {
+        "Id": 1,
+        "Name": "Metallica: \"Ride the Lightning\" (Parlophone, 1984)",
+        "Price": 19.99,
+        "IsAvailable": false
+    },
+    {
+        "Id": 2,
+        "Name": "Queen: \"Queen II\" (EMI Electrola, 1974)",
+        "Price": 19.99,
+        "IsAvailable": true
+    },
+    {
+        "Id": 3,
+        "Name": "Queen: \"A Night at the Opera\" (EMI Electrola, 1975)",
+        "Price": 15.99,
+        "IsAvailable": true
+    },
+    {
+        "Id": 4,
+        "Name": "Pink Floyd: \"The Dark Side of the Moon\" (Parlophone, 1973)",
+        "Price": 19.99,
+        "IsAvailable": true
+    }
+]
